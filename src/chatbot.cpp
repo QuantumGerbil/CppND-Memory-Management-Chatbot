@@ -44,7 +44,47 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+	//copy contructor
+	ChatBot::ChatBot(ChatBot const& cb){
+      std::cout << "ChatBot::ChatBot(ChatBot const& cb)" << std::endl;
+      _image = new wxBitmap(*cb._image);
+      _currentNode = cb._currentNode;
+      _rootNode = cb._rootNode;
+      _chatLogic = cb._chatLogic;
+    }
 
+	//move constructor
+    ChatBot::ChatBot(ChatBot&& cb) noexcept{
+      std::cout << "ChatBot::ChatBot(ChatBot&& cb) noexcept" << std::endl;
+      _image = std::move(cb._image);
+      _currentNode = std::move(cb._currentNode);
+      _rootNode = std::move(cb._rootNode);
+      _chatLogic = std::move(cb._chatLogic);
+      
+       _chatLogic->SetChatbotHandle(this);
+    }
+
+	//copy operator
+    ChatBot& ChatBot::operator=(ChatBot const& cb){
+      std::cout << "ChatBot& ChatBot::operator=(ChatBot const& cb)" << std::endl;
+      _image = new wxBitmap(*cb._image);
+      _currentNode = cb._currentNode;
+      _rootNode = cb._rootNode;
+      _chatLogic = cb._chatLogic;
+      return *this;
+    }
+
+	//move operator
+    ChatBot& ChatBot::operator=(ChatBot&& cb) noexcept{
+      std::cout << "ChatBot& ChatBot::operator=(ChatBot&& cb) noexcept" << std::endl;
+      _image = std::move(cb._image);
+      _currentNode = std::move(cb._currentNode);
+      _rootNode = std::move(cb._rootNode);
+      _chatLogic = std::move(cb._chatLogic);
+      
+      _chatLogic->SetChatbotHandle(this);
+      return *this;
+    }
 ////
 //// EOF STUDENT CODE
 
